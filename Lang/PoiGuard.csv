@@ -1,0 +1,5 @@
+Key,english,russian
+Tag,"[EE6C72][Location][-]","[EE6C72][Локация][-]"
+Evicted,"[F0A66D]Another player is doing a quest in this location right now.[-]","[F0A66D]В этой локации сейчас выполняет задание другой игрок.[-]"
+ClaimBlocked,"[F0A66D]A land claim cannot cover part of a location. The block was returned.[-]","[F0A66D]Клайм не может захватывать локацию. Блок возвращён.[-]"
+BedrollBlocked,"[F0A66D]A bedroll cannot be placed inside a location. It was returned.[-]","[F0A66D]Спальник нельзя ставить внутри локации. Он возвращён.[-]"

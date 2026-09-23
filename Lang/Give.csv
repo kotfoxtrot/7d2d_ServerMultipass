@@ -1,0 +1,12 @@
+Key,english,russian
+Tag,"[FFB85C][Give][-]","[FFB85C][Выдача][-]"
+Usage,"Usage: mp-give <player|all> <item> [count] [quality] [durability]","Использование: mp-give <игрок|all> <предмет> [количество] [качество] [прочность]"
+BadCount,"The count must be a whole number from 1 to {0}","Количество — целое число от 1 до {0}"
+BadQuality,"Quality must be from 1 to 6","Качество — от 1 до 6"
+BadDurability,"Durability must be a percent from 1 to 100","Прочность — процент от 1 до 100"
+UnknownItem,"Unknown item: {0}","Неизвестный предмет: {0}"
+PlayerNotFound,"Player not found: {0}","Игрок не найден: {0}"
+NotSpawned,"Player {0} is not in the world or is dead","Игрок {0} не в мире или мёртв"
+Given,"Gave [F0A66D]{0}[-] x[F0A66D]{1}[-] to [F0A66D]{2}[-]","Выдано [F0A66D]{0}[-] x[F0A66D]{1}[-] игроку [F0A66D]{2}[-]"
+GivenAll,"Gave [F0A66D]{0}[-] x[F0A66D]{1}[-] to [F0A66D]{2}[-] player(s)","Выдано [F0A66D]{0}[-] x[F0A66D]{1}[-], получили игроков: [F0A66D]{2}[-]"
+Received,"You received [F0A66D]{0}[-] x[F0A66D]{1}[-]","Вы получили [F0A66D]{0}[-] x[F0A66D]{1}[-]"

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BloodMoon>
+  <!-- In-game hour of the daily reminder, from 0 to 23 -->
+  <property name="NotifyHour" value="18" />
+  <!-- Remind when the days left divide by this number: 1 every day, 7 once a week, 0 only on the blood moon day -->
+  <property name="NotifyEveryDays" value="1" />
+</BloodMoon>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServerMultipass>
+  <!-- Character that starts a chat command, as the / in /home -->
+  <property name="ChatPrefix" value="/" />
+  <!-- Language for players who did not pick one with /lang and were not recognised by GeoIP. Must be a column name in the Lang files -->
+  <property name="DefaultLanguage" value="english" />
+  <!-- Pick the language of a new player by country. Needs a GeoIP database file (.mmdb) in the Data folder of the mod -->
+  <property name="GeoIp" value="true" />
+  <!-- GeoIP database file in the Data folder of the mod. Leave empty to use the first .mmdb file found there -->
+  <property name="GeoIpDatabase" value="" />
+  <!-- Which language players from a country get: country code:language pairs separated by commas -->
+  <property name="CountryLanguages" value="RU:russian,BY:russian,KZ:russian" />
+  <!-- Modules: true turns a module on, false turns it off. The change applies a few seconds after the file is saved.
+       A module also needs its files in Settings and Lang, otherwise it stays off and the log says why -->
+  <modules>
+    <!-- /home, /sethome, /delhome: players save their own teleport points -->
+    <module name="Home" enabled="true" />
+    <!-- /tp <player>, /tpa, /tpd: a player asks another player to be teleported to them -->
+    <module name="Tpa" enabled="true" />
+    <!-- /bm: days until the next blood moon, plus a daily reminder in chat -->
+    <module name="BloodMoon" enabled="true" />
+    <!-- greets a player who joins the server for the first time, everyone online sees it -->
+    <module name="Welcome" enabled="true" />
+    <!-- a storage box labelled 'sort' moves its items into boxes of the same base that already hold them -->
+    <module name="ChestSort" enabled="true" />
+    <!-- mp-give console command: puts an item straight into the inventory of a player or of everyone online -->
+    <module name="Give" enabled="true" />
+    <!-- scheduled restart: countdown in chat, players are kicked, the server stops and your host starts it again -->
+    <module name="Shutdown" enabled="false" />
+    <!-- inside a land claim only the owner and the owner's friends can open boxes, workstations, generators and loot bags; vending machines stay open, admins are not limited -->
+    <module name="ClaimGuard" enabled="false" />
+    <!-- the backpack a player drops on death can be opened only by its owner for a while -->
+    <module name="BackpackGuard" enabled="false" />
+    <!-- quest locations: other players are teleported out while someone does a quest there; land claims and bedrolls cannot be placed in locations -->
+    <module name="PoiGuard" enabled="false" />
+    <!-- chat tag and colours for chosen players, for example VIP -->
+    <module name="ChatDecor" enabled="false" />
+  </modules>
+</ServerMultipass>

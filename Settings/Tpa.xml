@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tpa>
+  <!-- Seconds a teleport request waits for an answer, from 10 to 3600 -->
+  <property name="RequestTimeout" value="60" />
+  <!-- Seconds a player waits between two teleports to other players. 0 turns the wait off -->
+  <property name="Cooldown" value="1800" />
+</Tpa>

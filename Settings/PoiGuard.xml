@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PoiGuard>
+  <!-- Teleport other players out of a location while its quest runs and during the loot time after it. The quest owner, their party and friends stay -->
+  <property name="EvictStrangers" value="true" />
+  <!-- Do not let players place a land claim whose area reaches into a location -->
+  <property name="BlockClaims" value="true" />
+  <!-- Do not let players place a bedroll inside a location -->
+  <property name="BlockBedrolls" value="true" />
+</PoiGuard>

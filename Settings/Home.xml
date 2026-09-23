@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Home>
+  <!-- How many homes one player can save, from 1 to 100 -->
+  <property name="Limit" value="3" />
+  <!-- Seconds a player waits between two teleports home. 0 turns the wait off -->
+  <property name="Cooldown" value="900" />
+</Home>

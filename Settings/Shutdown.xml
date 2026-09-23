@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shutdown>
+  <!-- When to restart: minutes after the server start (240), a time of day (03:00) or several times (03:00,09:00,15:00,21:00). Server local time -->
+  <property name="Schedule" value="240" />
+  <!-- Minutes before the restart when everyone online gets a warning, separated by commas -->
+  <property name="AlertMinutes" value="15,10,5,4,3,2,1" />
+  <!-- Tell every player who joins how long is left until the restart -->
+  <property name="AlertOnLogin" value="false" />
+  <!-- Tell a joining player about the restart anyway if it is this many minutes away or closer -->
+  <property name="JoinAlertMinutes" value="5" />
+  <!-- From this many minutes before the restart, warn that progress may not be saved -->
+  <property name="FinalWarningMinutes" value="1" />
+  <!-- Seconds before the restart when all players are kicked -->
+  <property name="KickLeadSeconds" value="5" />
+  <!-- Shortest pause in seconds between the kick and stopping the server -->
+  <property name="ShutdownGraceSeconds" value="3" />
+  <!-- Longest wait in seconds for players to disconnect before the server stops anyway -->
+  <property name="ShutdownTimeoutSeconds" value="15" />
+  <!-- Pause the countdown while a blood moon is on -->
+  <property name="FreezeDuringBloodMoon" value="true" />
+  <!-- Chat commands that show the time left until the restart, separated by commas -->
+  <property name="ChatCommands" value="rc" />
+</Shutdown>

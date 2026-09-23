@@ -1,0 +1,6 @@
+Key,english,russian
+NoPermission,"[FF5555]You are not allowed to use this command[-]","[FF5555]Эта команда вам недоступна[-]"
+LangCurrent,"Your language: [F0A66D]{0}[-]. Available: [F0A66D]{1}[-]. Change: [6FDC64]/lang <language>[-], back to automatic: [6FDC64]/lang auto[-]","Ваш язык: [F0A66D]{0}[-]. Доступны: [F0A66D]{1}[-]. Сменить: [6FDC64]/lang <язык>[-], вернуть автоматический: [6FDC64]/lang auto[-]"
+LangSet,"Language set: [F0A66D]{0}[-]","Язык установлен: [F0A66D]{0}[-]"
+LangAuto,"The language is chosen automatically again: [F0A66D]{0}[-]","Язык снова выбирается автоматически: [F0A66D]{0}[-]"
+LangUnknown,"[FF5555]Unknown language: {0}[-]. Available: [F0A66D]{1}[-]","[FF5555]Неизвестный язык: {0}[-]. Доступны: [F0A66D]{1}[-]"

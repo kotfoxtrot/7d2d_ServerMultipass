@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BackpackGuard>
+  <!-- Real-time minutes after death during which only the owner can open the dropped backpack -->
+  <property name="ProtectionMinutes" value="30" />
+  <!-- Friends of the owner (the in-game friends list) can open the backpack too -->
+  <property name="ExemptFriends" value="true" />
+</BackpackGuard>

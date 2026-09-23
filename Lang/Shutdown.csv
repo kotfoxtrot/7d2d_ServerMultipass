@@ -1,0 +1,7 @@
+Key,english,russian
+Tag,"[FF8C00][Server][-]","[FF8C00][Сервер][-]"
+Alert,"Restart in [FFFFFF]{0}[-]","Перезагрузка через [FFFFFF]{0}[-]"
+LastMinuteWarning,"[FF5555]Anything you do from now on may not be saved![-]","[FF5555]Всё, что вы сделаете с этого момента, может не сохраниться![-]"
+NoShutdown,"[55FF55]No restart is planned[-]","[55FF55]Перезагрузка не запланирована[-]"
+FrozenSuffix," [FF5555](paused during the blood moon)[-]"," [FF5555](на паузе во время кровавой луны)[-]"
+KickReason,"The server is restarting on schedule","Сервер перезагружается по расписанию"

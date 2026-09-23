@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ChestSort>
+  <!-- Label text of the storage box that sorts its items when it is closed -->
+  <property name="ChestName" value="sort" />
+  <!-- Land claims of one owner closer than the claim size plus this many blocks count as one base, from 0 to 256 -->
+  <property name="MergeDistance" value="5" />
+</ChestSort>

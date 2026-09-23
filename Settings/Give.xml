@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Give>
+  <!-- More console names for mp-give, separated by commas, for example st-GiveItem,gi for shop panels. Applied after a server restart -->
+  <property name="Aliases" value="" />
+  <!-- Largest amount one command can give, at least 1 -->
+  <property name="MaxCount" value="1000000" />
+</Give>
