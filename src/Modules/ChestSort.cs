@@ -32,7 +32,7 @@ namespace ServerMultipass.Modules
 
         internal void OnClosed(TEFeatureStorage source, int entityId)
         {
-            if (!source.bPlayerStorage || !IsSortBox(source)) return;
+            if (!IsPlayerStorage(source) || !IsSortBox(source)) return;
             var moved = Sort(source);
             if (moved > 0) Reply(Players.Client(entityId), "Sorted", moved);
         }
@@ -55,25 +55,32 @@ namespace ServerMultipass.Modules
             var targets = Targets(world, source, region, half);
             if (targets.Count == 0) return 0;
             var targetTypes = targets.Select(Types).ToList();
+            var targetItems = targets.Select(t => t.ItemGrid.CloneItems()).ToList();
+            var targetChanged = new bool[targets.Count];
             var sorted = new HashSet<int>();
-            var items = source.items;
+            var items = source.ItemGrid.CloneItems();
             for (var i = 0; i < items.Length; i++)
             {
-                if (items[i].IsEmpty() || IsLocked(source, i)) continue;
+                if (items[i].IsEmpty() || source.ItemGrid.IsLocked(i)) continue;
                 var type = items[i].itemValue.type;
-                var stack = items[i].Clone();
+                var stack = items[i];
                 var before = stack.count;
                 for (var t = 0; t < targets.Count && stack.count > 0; t++)
                 {
                     if (!targetTypes[t].Contains(type)) continue;
-                    targets[t].TryStackItem(0, stack);
-                    if (stack.count > 0 && AddToEmptySlot(targets[t], stack)) stack.count = 0;
+                    var count = stack.count;
+                    StackInto(targetItems[t], stack);
+                    if (stack.count > 0 && AddToEmptySlot(targets[t], targetItems[t], stack)) stack.count = 0;
+                    if (stack.count != count) targetChanged[t] = true;
                 }
                 if (stack.count == before) continue;
-                source.UpdateSlot(i, stack.count > 0 ? stack : ItemStack.Empty);
+                if (stack.count == 0) items[i] = ItemStack.Empty;
                 sorted.Add(type);
             }
-            if (sorted.Count > 0) source.SetModified();
+            if (sorted.Count == 0) return 0;
+            Commit(source, items);
+            for (var t = 0; t < targets.Count; t++)
+                if (targetChanged[t]) Commit(targets[t], targetItems[t]);
             return sorted.Count;
         }
 
@@ -119,7 +126,7 @@ namespace ServerMultipass.Modules
                 foreach (var tileEntity in chunk.GetTileEntities().list)
                 {
                     var storage = tileEntity.GetSelfOrFeature<TEFeatureStorage>();
-                    if (storage == null || storage == source || !storage.bPlayerStorage) continue;
+                    if (storage == null || storage == source || !IsPlayerStorage(storage)) continue;
                     if (!InRegion(region, half, tileEntity.ToWorldPos())) continue;
                     if (LockManager.Instance.IsLockedServer(storage) || IsSortBox(storage)) continue;
                     result.Add(storage);
@@ -128,32 +135,48 @@ namespace ServerMultipass.Modules
             return result;
         }
 
+        private static bool IsPlayerStorage(TEFeatureStorage storage)
+        {
+            return storage.Parent?.Owner != null || storage.ItemGrid.PlayerOwned;
+        }
+
         private static HashSet<int> Types(TEFeatureStorage storage)
         {
             var types = new HashSet<int>();
-            foreach (var item in storage.items)
-                if (!item.IsEmpty())
-                    types.Add(item.itemValue.type);
+            var grid = storage.ItemGrid;
+            for (var i = 0; i < grid.Length; i++)
+                if (!grid[i].IsEmpty())
+                    types.Add(grid[i].itemValue.type);
             return types;
         }
 
-        private static bool AddToEmptySlot(TEFeatureStorage storage, ItemStack stack)
+        private static void StackInto(ItemStack[] items, ItemStack stack)
         {
-            var items = storage.items;
+            for (var i = 0; i < items.Length && stack.count > 0; i++)
+            {
+                var count = stack.count;
+                if (items[i].itemValue.type != stack.itemValue.type || !items[i].CanStackPartly(ref count)) continue;
+                items[i].count += count;
+                stack.count -= count;
+            }
+        }
+
+        private static bool AddToEmptySlot(TEFeatureStorage storage, ItemStack[] items, ItemStack stack)
+        {
             for (var i = 0; i < items.Length; i++)
             {
-                if (!items[i].IsEmpty() || IsLocked(storage, i)) continue;
-                storage.UpdateSlot(i, stack);
-                storage.SetModified();
+                if (!items[i].IsEmpty() || storage.ItemGrid.IsLocked(i)) continue;
+                items[i] = stack.Clone();
                 return true;
             }
             return false;
         }
 
-        private static bool IsLocked(TEFeatureStorage storage, int slot)
+        private static void Commit(TEFeatureStorage storage, ItemStack[] items)
         {
-            var locks = storage.SlotLocks;
-            return locks != null && slot < locks.Length && locks[slot];
+            storage.ItemGrid.SetItems(items, false);
+            storage.SetModified();
+            storage.Parent?.NotifyListeners();
         }
 
         private static bool InRegion(List<Vector3i> region, int half, Vector3i position)

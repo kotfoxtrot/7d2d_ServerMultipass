@@ -47,51 +47,54 @@ namespace ServerMultipass.Modules
             return false;
         }
 
-        internal static void Check(int entityId, Vector3i position, ref bool result)
+        internal static bool Allow(int entityId, Vector3i position, ref bool result)
         {
             var module = Active;
-            if (module == null || !result) return;
+            if (module == null) return true;
             try
             {
-                if (!module.Allows(entityId, position)) result = false;
+                if (module.Allows(entityId, position)) return true;
             }
             catch (Exception e)
             {
                 module.Fault(e, "access check");
+                return true;
             }
+            result = false;
+            return false;
         }
     }
 
-    [HarmonyPatch(typeof(TileEntity), nameof(TileEntity.CanLockOnServer))]
+    [HarmonyPatch(typeof(TileEntity), nameof(TileEntity.OnLockRequestServer))]
     [HarmonyPatchCategory(nameof(ClaimGuard))]
     internal static class ClaimGuardTileEntityPatch
     {
-        private static void Postfix(TileEntity __instance, int _lockingPlayerId, ref bool __result)
+        private static bool Prefix(TileEntity __instance, int _lockingPlayerID, ref bool __result)
         {
-            if (!__result || ClaimGuard.Active == null || __instance.GetTileEntityType() == TileEntityType.VendingMachine) return;
-            ClaimGuard.Check(_lockingPlayerId, __instance.ToWorldPos(), ref __result);
+            if (ClaimGuard.Active == null || __instance.GetTileEntityType() == TileEntityType.VendingMachine) return true;
+            return ClaimGuard.Allow(_lockingPlayerID, __instance.ToWorldPos(), ref __result);
         }
     }
 
-    [HarmonyPatch(typeof(TEFeatureAbs), nameof(TEFeatureAbs.CanLockOnServer))]
+    [HarmonyPatch(typeof(TEFeatureStorage), nameof(TEFeatureStorage.OnLockRequestServer))]
     [HarmonyPatchCategory(nameof(ClaimGuard))]
     internal static class ClaimGuardStoragePatch
     {
-        private static void Postfix(TEFeatureAbs __instance, int _lockingPlayerID, ref bool __result)
+        private static bool Prefix(TEFeatureStorage __instance, int _lockingPlayerID, ref bool __result)
         {
-            if (!__result || ClaimGuard.Active == null || !(__instance is TEFeatureStorage)) return;
-            ClaimGuard.Check(_lockingPlayerID, __instance.ToWorldPos(), ref __result);
+            if (ClaimGuard.Active == null) return true;
+            return ClaimGuard.Allow(_lockingPlayerID, __instance.ToWorldPos(), ref __result);
         }
     }
 
-    [HarmonyPatch(typeof(Entity), nameof(Entity.CanLockOnServer))]
+    [HarmonyPatch(typeof(Entity), nameof(Entity.OnLockRequestServer))]
     [HarmonyPatchCategory(nameof(ClaimGuard))]
     internal static class ClaimGuardLootBagPatch
     {
-        private static void Postfix(Entity __instance, int _lockingPlayerID, ref bool __result)
+        private static bool Prefix(Entity __instance, int _lockingPlayerID, ref bool __result)
         {
-            if (!__result || ClaimGuard.Active == null || !(__instance is EntityItem) || __instance is EntityBackpack) return;
-            ClaimGuard.Check(_lockingPlayerID, World.worldToBlockPos(__instance.position), ref __result);
+            if (ClaimGuard.Active == null || !(__instance is EntityItem) || __instance is EntityBackpack) return true;
+            return ClaimGuard.Allow(_lockingPlayerID, World.worldToBlockPos(__instance.position), ref __result);
         }
     }
 }

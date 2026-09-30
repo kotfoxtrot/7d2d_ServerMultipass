@@ -77,23 +77,26 @@ namespace ServerMultipass.Modules
         }
     }
 
-    [HarmonyPatch(typeof(Entity), nameof(Entity.CanLockOnServer))]
+    [HarmonyPatch(typeof(Entity), nameof(Entity.OnLockRequestServer))]
     [HarmonyPatchCategory(nameof(BackpackGuard))]
     internal static class BackpackGuardPatch
     {
-        private static void Postfix(Entity __instance, int _lockingPlayerID, ref bool __result)
+        private static bool Prefix(Entity __instance, int _lockingPlayerID, ref bool __result)
         {
-            if (!__result || !(__instance is EntityBackpack backpack)) return;
+            if (!(__instance is EntityBackpack backpack)) return true;
             var module = BackpackGuard.Active;
-            if (module == null) return;
+            if (module == null) return true;
             try
             {
-                if (!module.Allows(backpack, _lockingPlayerID)) __result = false;
+                if (module.Allows(backpack, _lockingPlayerID)) return true;
             }
             catch (Exception e)
             {
                 module.Fault(e, "backpack check");
+                return true;
             }
+            __result = false;
+            return false;
         }
     }
 }
