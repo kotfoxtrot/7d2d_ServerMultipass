@@ -10,7 +10,7 @@ namespace ServerMultipass
 {
     public static class Multipass
     {
-        public const string Version = "1.3.0";
+        public const string Version = "1.4.0";
 
         private const string HarmonyId = "kotfoxtrot.servermultipass";
         private const string LogTag = "[Multipass] ";
