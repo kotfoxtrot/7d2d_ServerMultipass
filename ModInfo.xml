@@ -4,6 +4,6 @@
   <DisplayName value="Server Multipass" />
   <Description value="Server-side admin toolkit made of modules: homes, teleport requests, blood moon reminders, scheduled restarts, chest sorting, land claim, backpack and quest location protection, item giving, chat tags and welcome messages. Every module is switched on or off in ServerMultipass.xml; settings and texts apply without a restart. Server-side only, vanilla clients need nothing. See README.md for details. Built for game version 3.2." />
   <Author value="kotfoxtrot" />
-  <Version value="1.1" />
+  <Version value="1.2" />
   <Website value="" />
 </xml>

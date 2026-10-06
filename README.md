@@ -16,7 +16,7 @@ on or off in one file.
 | [Home](#home) | `/home`, `/sethome`, `/delhome`: personal teleport points | yes |
 | [Tpa](#tpa) | `/tp <player>`, `/tpa`, `/tpd`: teleport to another player with their consent | yes |
 | [BloodMoon](#bloodmoon) | `/bm` and a daily reminder of the days left until the blood moon | yes |
-| [Welcome](#welcome) | greets a newcomer in chat | yes |
+| [Welcome](#welcome) | greets a newcomer in chat and welcomes back a returning player | yes |
 | [ChestSort](#chestsort) | a storage box labelled `sort` spreads its items over the boxes of the base | yes |
 | [Give](#give) | `mp-give` console command: items straight into a player's inventory | yes |
 | [Shutdown](#shutdown) | restart on a schedule with a countdown in chat | no |
@@ -217,8 +217,13 @@ online gets a reminder, and on the blood moon day a warning that they are coming
 
 ## Welcome
 
-When a player joins the server for the first time, everyone online sees a greeting. The text is in
-`Lang/Welcome.csv`. No settings.
+When a player joins the server for the first time, everyone online sees a greeting. On every later
+join the player gets a private welcome back message. The texts are in `Lang/Welcome.csv`.
+
+| option | shipped value | meaning |
+|---|---|---|
+| `GreetNewPlayers` | `true` | greet a newcomer in chat for everyone online |
+| `GreetReturningPlayers` | `true` | send a returning player a private welcome back |
 
 ## ChestSort
 
@@ -285,7 +290,8 @@ service with `Restart=always`, or your hosting panel.
 ## ClaimGuard
 
 Inside a land claim only its owner and the owner's friends can open storage boxes, workstations,
-generators and loot bags. A stranger hears the deny sound and gets a message. Vending machines stay
+generators and loot bags. Loot bags also open for players in the owner's party, so after a blood
+moon at someone's base the loot can be shared; the owner has to be online. A stranger hears the deny sound and gets a message. Vending machines stay
 open for trade, admins are not limited, and dropped backpacks are left to
 [BackpackGuard](#backpackguard). A claim whose owner has been away too long stops protecting, as in
 the game itself. No settings.

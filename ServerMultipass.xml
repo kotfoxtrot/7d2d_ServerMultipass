@@ -19,7 +19,7 @@
     <module name="Tpa" enabled="true" />
     <!-- /bm: days until the next blood moon, plus a daily reminder in chat -->
     <module name="BloodMoon" enabled="true" />
-    <!-- greets a player who joins the server for the first time, everyone online sees it -->
+    <!-- greetings on join: everyone online sees a newcomer's first join, a returning player gets a private welcome back. Each one is switched in Settings/Welcome.xml -->
     <module name="Welcome" enabled="true" />
     <!-- a storage box labelled 'sort' moves its items into boxes of the same base that already hold them -->
     <module name="ChestSort" enabled="true" />
@@ -27,7 +27,7 @@
     <module name="Give" enabled="true" />
     <!-- scheduled restart: countdown in chat, players are kicked, the server stops and your host starts it again -->
     <module name="Shutdown" enabled="false" />
-    <!-- inside a land claim only the owner and the owner's friends can open boxes, workstations, generators and loot bags; vending machines stay open, admins are not limited -->
+    <!-- inside a land claim only the owner and the owner's friends can open boxes, workstations, generators and loot bags; loot bags also open for the owner's party; vending machines stay open, admins are not limited -->
     <module name="ClaimGuard" enabled="false" />
     <!-- the backpack a player drops on death can be opened only by its owner for a while -->
     <module name="BackpackGuard" enabled="false" />
