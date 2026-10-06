@@ -3,5 +3,5 @@
   <!-- Put the tag and the coloured name in front of the message like classic chat plugins. Then players who blocked this person still see the messages, and nameColor works only in this mode -->
   <property name="TagBeforeName" value="false" />
   <!-- One line per player. id is the EOS or Steam id (the lp console command shows it), tag is any text with colour codes, colours are RRGGBB -->
-  <!-- <player id="EOS_0002b5d9f7a54a1e8c1d3a4b5c6d7e8f" tag="[FF4500]VIP[-]" nameColor="FFD700" messageColor="00AA00" /> -->
+  <!-- <player id="EOS_00027dbf6eaf4377b47c3cf5c5c0ba6b" tag="[FF4500]VIP[-]" nameColor="FFD700" messageColor="00AA00" /> -->
 </ChatDecor>
