@@ -2,8 +2,8 @@
 
 One mod with the everyday features of a public 7 Days to Die server: homes, teleport requests,
 blood moon reminders, scheduled restarts, chest sorting, land claim, backpack and quest location
-protection, item giving, chat tags and a welcome message. Every feature is a module that you switch
-on or off in one file.
+protection, item giving, chat tags, a welcome message and locks on newly placed boxes, doors and
+vehicles. Every feature is a module that you switch on or off in one file.
 
 > Server-side mod · 7 Days to Die dedicated server 3.2 · no client download
 
@@ -24,6 +24,7 @@ on or off in one file.
 | [BackpackGuard](#backpackguard) | the backpack dropped on death belongs to its owner for 30 minutes | no |
 | [PoiGuard](#poiguard) | nobody can walk into a location while another player is doing a quest there | no |
 | [ChatDecor](#chatdecor) | chat tag and colours for chosen players, for example VIP | no |
+| [Autolock](#autolock) | boxes, doors and vehicles a player places start locked to them | no |
 
 - Modules are switched on and off in `ServerMultipass.xml`. A change applies a few seconds after
   the file is saved, no restart needed.
@@ -341,6 +342,33 @@ coloured name, but then the block list no longer hides these messages.
 | option | shipped value | meaning |
 |---|---|---|
 | `TagBeforeName` | `false` | classic look with the tag and coloured name in front, see above |
+
+## Autolock
+
+A storage crate, door or vehicle that a player places starts locked to that player. In the game
+itself it starts unlocked, and anyone can open it until the owner remembers to lock it.
+
+- Only what a player places gets locked. Locations, loot and everything already standing in the
+  world are left alone.
+- What the owner unlocked stays unlocked after a restart, and an upgraded block keeps the lock state
+  it had.
+- The owner unlocks, locks and sets a keypad code as usual. Nobody else, friends included, gets
+  into a locked box, door or vehicle without the code: this is how every lock in the game works. For
+  a friend to ride along, unlock the vehicle or give them its code.
+- Bandits open only unlocked doors, so a locked door keeps them out as well.
+
+Covered are the Wood, Iron and Steel Storage Crates and every door, hatch, gate, shutter and
+drawbridge that can be locked in the game. Safes, gun safes, lockers and powered doors have no lock
+in the game and are left alone. The lock is the game's own, exactly as if the owner had locked it by
+hand.
+
+| option | shipped value | meaning |
+|---|---|---|
+| `LockStorage` | `true` | lock storage crates |
+| `LockDoors` | `true` | lock doors, hatches, gates, shutters and drawbridges |
+| `LockVehicles` | `true` | lock vehicles |
+
+The separate LockStorageOnPlace and LockVehicleOnPlace mods are not needed with this module.
 
 ## Console commands
 

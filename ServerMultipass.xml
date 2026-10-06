@@ -35,5 +35,7 @@
     <module name="PoiGuard" enabled="false" />
     <!-- chat tag and colours for chosen players, for example VIP -->
     <module name="ChatDecor" enabled="false" />
+    <!-- storage boxes, doors and vehicles start locked to the player who placed them. Each kind is switched in Settings/Autolock.xml -->
+    <module name="Autolock" enabled="false" />
   </modules>
 </ServerMultipass>

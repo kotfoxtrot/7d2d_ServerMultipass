@@ -10,7 +10,7 @@ namespace ServerMultipass
 {
     public static class Multipass
     {
-        public const string Version = "1.0.0";
+        public const string Version = "1.3.0";
 
         private const string HarmonyId = "kotfoxtrot.servermultipass";
         private const string LogTag = "[Multipass] ";
@@ -52,7 +52,7 @@ namespace ServerMultipass
                 modules.AddRange(new Module[]
                 {
                     new Home(), new Tpa(), new BloodMoon(), new Welcome(), new ChestSort(), new Give(),
-                    new Shutdown(), new ClaimGuard(), new BackpackGuard(), new PoiGuard(), new ChatDecor()
+                    new Shutdown(), new ClaimGuard(), new BackpackGuard(), new PoiGuard(), new ChatDecor(), new Autolock()
                 });
                 LoadCoreTexts(false);
                 foreach (var module in modules)

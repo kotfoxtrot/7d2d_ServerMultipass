@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Autolock>
+  <!-- A storage crate placed by a player starts locked to them -->
+  <property name="LockStorage" value="true" />
+  <!-- A door, hatch, gate, shutter or drawbridge placed by a player starts locked to them. Friends then need the keypad code to open it, as with a door locked by hand -->
+  <property name="LockDoors" value="true" />
+  <!-- A vehicle placed by a player starts locked to them -->
+  <property name="LockVehicles" value="true" />
+</Autolock>
