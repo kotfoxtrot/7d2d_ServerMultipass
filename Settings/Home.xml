@@ -4,4 +4,8 @@
   <property name="Limit" value="3" />
   <!-- Seconds a player waits between two teleports home. 0 turns the wait off -->
   <property name="Cooldown" value="900" />
+  <!-- /sethome works only inside the player's own land claim. Claims of friends do not count -->
+  <property name="OnlyInClaim" value="true" />
+  <!-- A home that stands in the owner's land claim is removed once no claim of the owner covers it anymore: the claim was destroyed or picked up. The owner is told in chat, or on the next join if offline -->
+  <property name="RemoveWithClaim" value="true" />
 </Home>

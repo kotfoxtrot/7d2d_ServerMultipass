@@ -13,7 +13,7 @@ vehicles. Every feature is a module that you switch on or off in one file.
 
 | module | what it gives | on after install |
 |---|---|---|
-| [Home](#home) | `/home`, `/sethome`, `/delhome`: personal teleport points | yes |
+| [Home](#home) | `/home`, `/sethome`, `/delhome`: personal teleport points inside your land claim | yes |
 | [Tpa](#tpa) | `/tp <player>`, `/tpa`, `/tpd`: teleport to another player with their consent | yes |
 | [BloodMoon](#bloodmoon) | `/bm` and a daily reminder of the days left until the blood moon | yes |
 | [Welcome](#welcome) | greets a newcomer in chat and welcomes back a returning player | yes |
@@ -187,6 +187,14 @@ Players save named teleport points and return to them with a cooldown.
 - `/home` lists your homes, `/home <name>` teleports you there
 - `/delhome <name>` removes a home
 
+With `OnlyInClaim` a home can be saved only inside the player's own land claim, a friend's claim
+does not count. This applies to admins too. With `RemoveWithClaim` a home that stands in the owner's
+claim is removed as soon as no claim of the owner covers it anymore: the claim block was destroyed,
+picked up or switched off by the claim limit. The owner gets
+`Your land claim was destroyed, home removed: base` in chat right away, or on the next join if they
+were offline, and the log records every such removal. Homes saved outside a claim, for example
+before `OnlyInClaim` was turned on, stay until a claim of the owner covers them.
+
 Teleport is refused while the player sits in a vehicle. Homes belong to the world and are wiped
 together with it.
 
@@ -194,6 +202,8 @@ together with it.
 |---|---|---|
 | `Limit` | `3` | how many homes one player can save |
 | `Cooldown` | `900` | seconds between two teleports home, 0 turns the wait off |
+| `OnlyInClaim` | `true` | `/sethome` works only inside the player's own land claim |
+| `RemoveWithClaim` | `true` | a home is removed together with the land claim it stands in |
 
 ## Tpa
 

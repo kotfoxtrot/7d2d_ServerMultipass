@@ -12,3 +12,5 @@ BadName,"The name must be up to {0} characters, without square brackets","Имя
 Cooldown,"Teleport home is recharging: [6FDC64]{0}[-]","Перемещение домой перезаряжается: [6FDC64]{0}[-]"
 InVehicle,"[FF5555]Get out of the vehicle first[-]","[FF5555]Сначала выйдите из транспорта[-]"
 Teleported,"Welcome home: [F0A66D]{0}[-]","С возвращением домой: [F0A66D]{0}[-]"
+NotInClaim,"[FF5555]A home can be saved only inside your own land claim.[-]","[FF5555]Дом можно сохранить только внутри своего клайма.[-]"
+RemovedWithClaim,"Your land claim was destroyed, home [F0A66D]{0}[-] removed!","Ваш клайм разрушен, дом [F0A66D]{0}[-] удалён!"

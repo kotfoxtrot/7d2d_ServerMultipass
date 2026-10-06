@@ -13,7 +13,7 @@
   <!-- Modules: true turns a module on, false turns it off. The change applies a few seconds after the file is saved.
        A module also needs its files in Settings and Lang, otherwise it stays off and the log says why -->
   <modules>
-    <!-- /home, /sethome, /delhome: players save their own teleport points -->
+    <!-- /home, /sethome, /delhome: players save their own teleport points inside their land claim; a home goes away together with its claim -->
     <module name="Home" enabled="true" />
     <!-- /tp <player>, /tpa, /tpd: a player asks another player to be teleported to them -->
     <module name="Tpa" enabled="true" />
