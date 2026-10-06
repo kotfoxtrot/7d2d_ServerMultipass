@@ -52,7 +52,7 @@ namespace ServerMultipass
                 modules.AddRange(new Module[]
                 {
                     new Home(), new Tpa(), new BloodMoon(), new Welcome(), new ChestSort(), new Give(),
-                    new Shutdown(), new ClaimGuard(), new BackpackGuard(), new PoiGuard(), new ChatDecor(), new Autolock()
+                    new Shutdown(), new ClaimGuard(), new ClaimLimit(), new BackpackGuard(), new PoiGuard(), new ChatDecor(), new Autolock()
                 });
                 LoadCoreTexts(false);
                 foreach (var module in modules)

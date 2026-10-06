@@ -21,6 +21,7 @@ vehicles. Every feature is a module that you switch on or off in one file.
 | [Give](#give) | `mp-give` console command: items straight into a player's inventory | yes |
 | [Shutdown](#shutdown) | restart on a schedule with a countdown in chat | no |
 | [ClaimGuard](#claimguard) | only the owner and friends can open boxes and workstations inside a land claim | no |
+| [ClaimLimit](#claimlimit) | a land claim over the limit is given back instead of the oldest claim being switched off | yes |
 | [BackpackGuard](#backpackguard) | the backpack dropped on death belongs to its owner for 30 minutes | no |
 | [PoiGuard](#poiguard) | nobody can walk into a location while another player is doing a quest there | no |
 | [ChatDecor](#chatdecor) | chat tag and colours for chosen players, for example VIP | no |
@@ -296,6 +297,25 @@ moon at someone's base the loot can be shared; the owner has to be online. A str
 open for trade, admins are not limited, and dropped backpacks are left to
 [BackpackGuard](#backpackguard). A claim whose owner has been away too long stops protecting, as in
 the game itself. No settings.
+
+## ClaimLimit
+
+In the game itself a player who places one land claim more than `LandClaimCount` in
+`serverconfig.xml` allows silently loses the oldest one: it stops protecting, and many players never
+notice. With this module such a claim is not placed at all: the block goes back into the inventory,
+and the player hears the deny sound and reads `Land claim limit reached: 3/3!`. Every claim that is
+placed shows how many of the limit are in use: `Land claim blocks placed: 2/3!`.
+
+The limit is `LandClaimCount` from `serverconfig.xml`; `setgamepref LandClaimCount` applies within
+a second. The player's game applies the limit on its own the moment the block is placed, before the
+server sees it, so while the module is on, the game's own limit is kept one above `LandClaimCount`:
+neither the server nor the player's game switches off an old claim, and the module turns the extra
+one away. When the module is turned off, the game's limit goes back to `LandClaimCount`. Do not
+change it with `setgamestat LandClaimCount`, the module sets it back within a second.
+
+If you lower `LandClaimCount` below what some players already have, their old claims stay, but they
+cannot place new ones until they are under the limit. The rule covers admins too, as the game's own
+limit does. A refused claim is written to the log. No settings.
 
 ## BackpackGuard
 

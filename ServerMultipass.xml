@@ -29,6 +29,8 @@
     <module name="Shutdown" enabled="false" />
     <!-- inside a land claim only the owner and the owner's friends can open boxes, workstations, generators and loot bags; loot bags also open for the owner's party; vending machines stay open, admins are not limited -->
     <module name="ClaimGuard" enabled="false" />
+    <!-- a player who already has as many land claims as LandClaimCount in serverconfig.xml cannot place another one: the block is given back and the player is told about the limit, instead of the game silently switching off their oldest claim. Every placed claim shows how many of the limit are used -->
+    <module name="ClaimLimit" enabled="true" />
     <!-- the backpack a player drops on death can be opened only by its owner for a while -->
     <module name="BackpackGuard" enabled="false" />
     <!-- quest locations: other players are teleported out while someone does a quest there; land claims and bedrolls cannot be placed in locations -->

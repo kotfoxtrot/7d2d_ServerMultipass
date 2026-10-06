@@ -1,0 +1,4 @@
+Key,english,russian
+Tag,"[EE6C72][Claim][-]","[EE6C72][Клайм][-]"
+Placed,"Land claim blocks placed: [F0A66D]{0}/{1}[-]","Установлено клаймов: [F0A66D]{0}/{1}[-]"
+LimitReached,"[FF5555]Land claim limit reached: [F0A66D]{0}/{1}[-]","[FF5555]Достигнут лимит клаймов: [F0A66D]{0}/{1}[-]"
