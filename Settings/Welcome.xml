@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Welcome>
+  <!-- When a player joins the server for the first time, everyone online sees a greeting -->
+  <property name="GreetNewPlayers" value="true" />
+  <!-- On every later join the player gets a private welcome back message -->
+  <property name="GreetReturningPlayers" value="true" />
+</Welcome>
