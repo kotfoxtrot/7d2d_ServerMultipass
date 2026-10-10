@@ -10,7 +10,8 @@
   <property name="GeoIpDatabase" value="" />
   <!-- Which language players from a country get: country code:language pairs separated by commas -->
   <property name="CountryLanguages" value="RU:russian,BY:russian,KZ:russian" />
-  <!-- Modules: true turns a module on, false turns it off. The change applies a few seconds after the file is saved.
+  <!-- Modules: true turns a module on, false turns it off. The change applies a few seconds after the file is saved,
+       except for modules that change the game XML: they turn on or off only after a server restart.
        A module also needs its files in Settings and Lang, otherwise it stays off and the log says why -->
   <modules>
     <!-- /home, /sethome, /delhome: players save their own teleport points inside their land claim; a home goes away together with its claim -->
@@ -39,5 +40,9 @@
     <module name="ChatDecor" enabled="false" />
     <!-- storage boxes, doors and vehicles start locked to the player who placed them. Each kind is switched in Settings/Autolock.xml -->
     <module name="Autolock" enabled="false" />
+    <!-- rental vending machines: a free machine sells a rental contract, the rent renews itself from the machine till, a player rents a limited number of machines.
+         Unlike the other modules, it turns on or off only after a server restart, not a few seconds after saving: it changes the game XML,
+         and players get the game XML only when they join. Its contract item and trader 51 stay in the game even when it is off, the world save needs them -->
+    <module name="VendingRental" enabled="false" />
   </modules>
 </ServerMultipass>

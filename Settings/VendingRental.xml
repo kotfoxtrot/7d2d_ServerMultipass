@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VendingRental>
+  <!-- Price of the rental contract and of every renewal, in dukes. Applies after a server restart: the price goes into the game XML that players get when they join -->
+  <property name="RentPrice" value="5000" />
+  <!-- How many game days one payment rents a machine for -->
+  <property name="RentDays" value="30" />
+  <!-- How many machines one player can rent at the same time, picked up machines with a kept rent included -->
+  <property name="MaxRentalsPerPlayer" value="3" />
+  <!-- Buyers from the wasteland: now and then a rented machine sells an item at a fair price, the dukes go to its till -->
+  <property name="AutoBuyEnabled" value="true" />
+  <!-- How many times per game day each machine gets a chance of such a sale, from 0.01 to 96 -->
+  <property name="AutoBuyRunsPerDay" value="4" />
+  <!-- Chance of a sale at each of those times, percent -->
+  <property name="AutoBuyChancePercent" value="30" />
+  <!-- These buyers come only to a machine where no player has bought anything for this many game hours. A new rent counts as a purchase -->
+  <property name="AutoBuyIdleHours" value="12" />
+  <!-- These buyers take only items priced at most this many percent above the trader price -->
+  <property name="AutoBuyMaxMarkupPercent" value="30" />
+  <!-- Item names these buyers never take, separated by commas -->
+  <property name="AutoBuyExcludeItems" value="" />
+</VendingRental>

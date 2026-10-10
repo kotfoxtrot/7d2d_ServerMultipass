@@ -1,0 +1,5 @@
+Key,File,Type,UsedInMainMenu,NoTranslate,english,russian
+cntVendingMachineRentalDesc,blocks,Block,,,"Trading requires paying tribute to the Duke of Navezgane. Buy the rental contract, after that the tribute is taken from the machine till.","Для торговли необходимо платить дань Дюку всего Невезгана. Купите договор аренды, дальше дань берётся из кассы автомата."
+cntVendingMachineRentalPlayerDesc,blocks,Block,,,"Trading requires paying tribute to the Duke of Navezgane. Place the machine and buy the rental contract in it, after that the tribute is taken from the till. An empty machine can be moved together with its rent.","Для торговли необходимо платить дань Дюку всего Невезгана. Поставьте автомат и купите в нём договор аренды, дальше дань берётся из кассы. Пустой автомат можно перенести вместе с арендой."
+vendingRentalContract,items,Item,,,Vending Machine Rental Contract,Договор аренды автомата
+vendingRentalContractDesc,items,Item,,,"Tribute to the Duke of Navezgane for the right to trade. Buy it in a free machine and the machine is yours.","Дань Дюку всего Невезгана за право торговать. Купите его в свободном автомате, и автомат ваш."

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Applied even when the module is off: contracts may lie in inventories and machines -->
+<configs>
+	<append xpath="/items">
+		<item name="vendingRentalContract">
+			<property name="Extends" value="blankNoteMaster" />
+			<property name="CreativeMode" value="None" />
+			<property name="Tags" value="vendingRentalContract" />
+			<property name="DescriptionKey" value="vendingRentalContractDesc" />
+			<property name="EconomicValue" value="5000" />
+			<property name="EconomicBundleSize" value="1" />
+			<property name="SellableToTrader" value="false" />
+			<property name="NoScrapping" value="true" />
+		</item>
+	</append>
+</configs>

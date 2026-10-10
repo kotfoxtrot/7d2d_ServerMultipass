@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<append xpath="/gameevents">
+		<action_sequence name="vending_rental_remove_contract">
+			<property name="allow_user_trigger" value="false" />
+			<property name="action_type" value="Game" />
+			<action class="RemoveItems">
+				<property name="items_location" value="Toolbelt,Backpack" />
+				<property name="items_tags" value="vendingRentalContract" />
+			</action>
+		</action_sequence>
+	</append>
+</configs>

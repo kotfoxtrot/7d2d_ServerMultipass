@@ -40,9 +40,12 @@ namespace ServerMultipass
         internal string SettingsSource => $"Settings/{Name}.xml";
         internal string SettingsPath => Path.Combine(Multipass.SettingsDir, Name + ".xml");
         internal string TextsPath => Path.Combine(Multipass.LangDir, Name + ".csv");
+        internal string XmlPath => Path.Combine(Multipass.XmlDir, Name);
+        internal bool XmlApplied { get; set; }
 
         protected virtual bool HasPatches => false;
         protected virtual bool HasTexts => true;
+        protected internal virtual bool HasXml => false;
         protected internal virtual bool HandlesChat => false;
         protected internal virtual IEnumerable<string> ConsoleCommands => Enumerable.Empty<string>();
 
@@ -190,7 +193,7 @@ namespace ServerMultipass
             var now = DateTime.UtcNow;
             recentErrors.Enqueue(now);
             while (recentErrors.Count > 0 && (now - recentErrors.Peek()).TotalSeconds > 60) recentErrors.Dequeue();
-            if (recentErrors.Count < MaxErrorsPerMinute || Faulted) return;
+            if (recentErrors.Count < MaxErrorsPerMinute || Faulted || HasXml) return;
             Faulted = true;
             Multipass.RequestDisable(this);
         }
@@ -223,6 +226,7 @@ namespace ServerMultipass
             settingsProblem = null;
             if (!reload) return;
             if (!quiet) Multipass.Info(SettingsSource + " reloaded");
+            if (HasXml) XmlLayer.CheckChanged(this);
             if (Enabled) Multipass.Run(this, "settings", OnSettingsChanged);
         }
 

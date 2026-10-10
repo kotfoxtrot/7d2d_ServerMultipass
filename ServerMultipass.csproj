@@ -36,6 +36,7 @@
     <ModConfig Include="ServerMultipass.xml" />
     <ModConfig Include="Settings/*.xml" Folder="Settings/" />
     <ModConfig Include="Lang/*.csv" Folder="Lang/" />
+    <ModXml Include="Xml/**/*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +80,8 @@
     </ItemGroup>
     <Copy SourceFiles="@(ModBinary);@(ModDocument)" DestinationFolder="$(PackageDir)" />
     <Copy SourceFiles="@(ModConfig)" DestinationFiles="@(ModConfig->'$(PackageDir)/%(Folder)%(Filename)%(Extension)')" />
+    <RemoveDir Directories="$(PackageDir)/Xml" />
+    <Copy SourceFiles="@(ModXml)" DestinationFiles="@(ModXml->'$(PackageDir)/Xml/%(RecursiveDir)%(Filename)%(Extension)')" />
     <Message Importance="high" Text="Mod folder: $(PackageDir)" />
   </Target>
 
@@ -96,7 +99,9 @@
     <Delete Files="@(DeployFile->'$(ModDir)/%(Filename)%(Extension)')" />
     <Copy SourceFiles="@(DeployFile)" DestinationFolder="$(ModDir)" />
     <Copy SourceFiles="@(NewConfig)" DestinationFiles="@(NewConfig->'%(Destination)')" />
-    <Message Importance="high" Text="Deployed to $(ModDir), existing Settings, Lang and ServerMultipass.xml were kept" />
+    <RemoveDir Directories="$(ModDir)/Xml" />
+    <Copy SourceFiles="@(ModXml)" DestinationFiles="@(ModXml->'$(ModDir)/Xml/%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Message Importance="high" Text="Deployed to $(ModDir), Xml was replaced, existing Settings, Lang and ServerMultipass.xml were kept" />
   </Target>
 
 </Project>

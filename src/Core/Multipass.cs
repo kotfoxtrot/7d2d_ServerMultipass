@@ -10,7 +10,7 @@ namespace ServerMultipass
 {
     public static class Multipass
     {
-        public const string Version = "1.4.0";
+        public const string Version = "1.5.0";
 
         private const string HarmonyId = "kotfoxtrot.servermultipass";
         private const string LogTag = "[Multipass] ";
@@ -40,6 +40,7 @@ namespace ServerMultipass
         public static string SettingsDir => Path.Combine(ModPath, "Settings");
         public static string LangDir => Path.Combine(ModPath, "Lang");
         public static string DataDir => Path.Combine(ModPath, "Data");
+        public static string XmlDir => Path.Combine(ModPath, XmlLayer.FolderName);
 
         internal static void Init(Mod mod)
         {
@@ -52,7 +53,8 @@ namespace ServerMultipass
                 modules.AddRange(new Module[]
                 {
                     new Home(), new Tpa(), new BloodMoon(), new Welcome(), new ChestSort(), new Give(),
-                    new Shutdown(), new ClaimGuard(), new ClaimLimit(), new BackpackGuard(), new PoiGuard(), new ChatDecor(), new Autolock()
+                    new Shutdown(), new ClaimGuard(), new ClaimLimit(), new BackpackGuard(), new PoiGuard(), new ChatDecor(), new Autolock(),
+                    new VendingRental()
                 });
                 LoadCoreTexts(false);
                 foreach (var module in modules)
@@ -61,6 +63,7 @@ namespace ServerMultipass
                     module.LoadTexts(false, true);
                 }
                 MainConfig.Load();
+                XmlLayer.Init(mod);
                 Language.Init();
 
                 ModEvents.ChatMessage.RegisterHandler(OnChatCommand);
@@ -94,6 +97,10 @@ namespace ServerMultipass
         {
             MainConfig.SaveState(module.Name, enabled);
             if (enabled && !module.ConfigReady) return $"{module.Name} is saved as on, but it stays off: {module.ConfigProblem}";
+            if (module.HasXml)
+                return enabled == module.XmlApplied
+                    ? $"{module.Name} is {OnOff(enabled)}"
+                    : $"{module.Name} is saved as {OnOff(enabled)} and turns {OnOff(enabled)} after a server restart, as it changes the game XML";
             if (!Started || Settings == null) return $"{module.Name} is saved as {OnOff(enabled)} and will apply when the world starts";
             if (enabled)
             {
@@ -200,8 +207,10 @@ namespace ServerMultipass
             foreach (var module in modules)
             {
                 var state = MainConfig.State(module);
-                var wanted = Settings != null && state == true;
+                var wanted = module.HasXml ? module.XmlApplied : Settings != null && state == true;
                 if (Settings != null && state == null) Warn($"{module.Name} is not listed in {MainConfig.FileName} and stays off");
+                else if (module.HasXml && !quiet && Settings != null && state != module.XmlApplied)
+                    Warn($"{module.Name} is {OnOff(state == true)} in {MainConfig.FileName} and turns {OnOff(state == true)} after a server restart, as it changes the game XML");
                 if (wanted && !module.Enabled)
                 {
                     if (!module.ConfigReady)

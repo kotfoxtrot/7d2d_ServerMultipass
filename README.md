@@ -2,8 +2,8 @@
 
 One mod with the everyday features of a public 7 Days to Die server: homes, teleport requests,
 blood moon reminders, scheduled restarts, chest sorting, land claim, backpack and quest location
-protection, item giving, chat tags, a welcome message and locks on newly placed boxes, doors and
-vehicles. Every feature is a module that you switch on or off in one file.
+protection, item giving, chat tags, a welcome message, locks on newly placed boxes, doors and
+vehicles, and rental vending machines. Every feature is a module that you switch on or off in one file.
 
 > Server-side mod · 7 Days to Die dedicated server 3.2 · no client download
 
@@ -26,9 +26,11 @@ vehicles. Every feature is a module that you switch on or off in one file.
 | [PoiGuard](#poiguard) | nobody can walk into a location while another player is doing a quest there | no |
 | [ChatDecor](#chatdecor) | chat tag and colours for chosen players, for example VIP | no |
 | [Autolock](#autolock) | boxes, doors and vehicles a player places start locked to them | no |
+| [VendingRental](#vendingrental) | rental vending machines: a contract, renewal from the till, a limit per player | no |
 
 - Modules are switched on and off in `ServerMultipass.xml`. A change applies a few seconds after
-  the file is saved, no restart needed.
+  the file is saved, no restart needed. The exception are modules that change the game XML: they
+  switch on or off after a server restart, see [Modules with game XML](#modules-with-game-xml).
 - The mod comes with ready settings and text files for every module, with an explanation above
   each line. It does not create these files itself: a module whose file is missing stays off.
 - All messages to players come in English and Russian. Players pick a language with `/lang`, and a
@@ -53,7 +55,7 @@ vehicles. Every feature is a module that you switch on or off in one file.
 
 1. Unpack the archive into `<server>/Mods/` so that you end up with
    `<server>/Mods/1_ServerMultipass/` containing `ServerMultipass.dll`, `ModInfo.xml`,
-   `ServerMultipass.xml` and the `Settings` and `Lang` folders.
+   `ServerMultipass.xml` and the `Settings`, `Lang` and `Xml` folders.
 2. Optional: download `GeoLite2-Country.mmdb` from [github.com/P3TERX/GeoLite.mmdb](https://github.com/P3TERX/GeoLite.mmdb) and put it into
    `<server>/Mods/1_ServerMultipass/Data/` (create the folder if it is not there yet).
 3. Look through `ServerMultipass.xml` and the `Settings` files, see [Configuration](#configuration),
@@ -68,16 +70,16 @@ dotnet build -c Release -p:GameRoot=/path/to/server
 `GameRoot` is the dedicated server root, the folder holding `7DaysToDieServer_Data/Managed` and
 `Mods/0_TFP_Harmony`. Omit `-p:GameRoot` and the path baked into the `.csproj` is used.
 
-The build puts the ready mod folder, with the DLL, `ServerMultipass.xml`, `Settings` and `Lang`,
-into `bin/1_ServerMultipass/`; `-p:PackageDir=/some/folder` puts it elsewhere. Add
-`-p:Deploy=true` to install it into `<GameRoot>/Mods/1_ServerMultipass/`: the DLL, `ModInfo.xml`
-and the READMEs are replaced, your `ServerMultipass.xml`, `Settings` and `Lang` files are kept and
-only missing ones are added.
+The build puts the ready mod folder, with the DLL, `ServerMultipass.xml`, `Settings`, `Lang` and
+`Xml`, into `bin/1_ServerMultipass/`; `-p:PackageDir=/some/folder` puts it elsewhere. Add
+`-p:Deploy=true` to install it into `<GameRoot>/Mods/1_ServerMultipass/`: the DLL, `ModInfo.xml`,
+the READMEs and the `Xml` folder are replaced, your `ServerMultipass.xml`, `Settings` and `Lang`
+files are kept and only missing ones are added.
 
 ### Updating
 
-Replace `ServerMultipass.dll` and `ModInfo.xml`, keep your `ServerMultipass.xml`, `Settings` and
-`Lang`, then restart the server. The mod itself never writes into these files, except
+Replace `ServerMultipass.dll`, `ModInfo.xml` and the whole `Xml` folder, keep your
+`ServerMultipass.xml`, `Settings` and `Lang`, then restart the server. The mod itself never writes into these files, except
 `mp enable` and `mp disable`, which switch a module in `ServerMultipass.xml`.
 
 If a new version adds an option, a module or a text, the log says what your files are missing,
@@ -101,6 +103,7 @@ Mods/1_ServerMultipass/
 ├── ServerMultipass.xml      shipped: modules on or off, general options
 ├── Settings/<Module>.xml    shipped: options of each module
 ├── Lang/<Module>.csv        shipped: every text players see
+├── Xml/<Module>/            shipped: game XML of a module, see "Modules with game XML"
 └── Data/
     ├── Players.json         written by the mod: languages that players picked with /lang
     └── GeoLite2-City.mmdb   GeoIP database, optional, put it here yourself
@@ -120,6 +123,28 @@ take it from the archive of your version.
 Every file is read again a few seconds after you save it. If the new version of a file has a
 mistake, it is not applied, the log tells what is wrong and the previous values stay in use. All log
 lines of the mod start with `[Multipass]`.
+
+### Modules with game XML
+
+Some modules change the game XML: blocks, items, traders, windows. Their XML lives in
+`Xml/<Module>/`, and the server takes it in when it starts:
+
+- files in `Xml/<Module>/` apply only if the module is on in `ServerMultipass.xml` when the server
+  starts;
+- files in `Xml/<Module>/Always/` apply always, even while the module is off. They hold what the
+  world save cannot load without, such as items and traders already present in the world, and the
+  module's `Localization.csv`;
+- `${Option}` in these files is replaced with the value from `Settings/<Module>.xml`, for example
+  `${RentPrice}`.
+
+Such a module switches on or off only after a server restart: players get the game XML when they
+join, and it cannot change while they play. `mp enable` and `mp disable` save the choice, and until
+the restart `mp` shows `on (off after restart)` or `off (on after restart)`. An option that goes into
+the XML also applies after a restart, the log warns about it. The other options and the texts of
+such modules apply on the fly, as everywhere else.
+
+The `Xml` folder is part of the mod, like the DLL: an update replaces it as a whole. Change values in
+`Settings`, not in the XML. What the game finally got is in `Saves/<World>/<Game>/ConfigsDump/`.
 
 ### ServerMultipass.xml
 
@@ -400,6 +425,50 @@ hand.
 
 The separate LockStorageOnPlace and LockVehicleOnPlace mods are not needed with this module.
 
+## VendingRental
+
+Rental vending machines, built on the game's own machines. Trading requires paying tribute to the
+Duke of Navezgane:
+
+- a trader's machine (`cntVendingMachineTrader`) sells a rental contract while it is free. Buying the
+  contract rents the machine to the player for `RentDays` days;
+- a machine a player placed (`cntVendingMachine`) can be rented only by the one who placed it. An
+  empty machine can be picked up and placed elsewhere: the rent and the till move with it. Machines
+  placed before the module was on stay ordinary.
+
+The rent renews itself: a day before it ends, `RentPrice` is taken from the machine till. If the till
+is short, the rent ends and the goods and the till are lost. The game's Rent button is hidden, the
+machine itself shows how long the rent lasts.
+
+A player gets three chat messages: how many machines are rented when buying a contract
+(`Vending machines rented: 2/3`), that the `MaxRentalsPerPlayer` limit is reached (the contract
+money is given back), and, a day before the rent ends, how many dukes the till needs for renewal.
+
+Every purchase in a rented machine is checked on the server: the game itself trusts whatever the
+player sends. Optionally a machine now and then sells an item at a fair price to buyers from the
+wasteland when players have not bought anything there for a while.
+
+Rentals are kept in `Saves/<World>/<Game>/ServerMultipass/VendingRental.json`. On its first start
+the module takes over the rentals from `VendingRental.xml` of the separate VendingRental mod. Remove
+that separate mod: it does not work together with the module.
+
+The module changes the game XML, so it switches on or off after a server restart, see
+[Modules with game XML](#modules-with-game-xml). When it is off, the Rent button and ordinary
+machines come back, while the rental contract and trader 51 stay in the game: machines placed by
+players and contracts in inventories are saved with them.
+
+| option | shipped value | meaning |
+|---|---|---|
+| `RentPrice` | `5000` | price of the contract and of each renewal, in dukes. Applies after a server restart |
+| `RentDays` | `30` | game days one payment rents a machine for |
+| `MaxRentalsPerPlayer` | `3` | machines one player rents at the same time, picked up machines with a kept rent included |
+| `AutoBuyEnabled` | `true` | buyers from the wasteland buy goods in rented machines |
+| `AutoBuyRunsPerDay` | `4` | times per game day a machine gets a chance of such a sale, from 0.01 to 96 |
+| `AutoBuyChancePercent` | `30` | chance of a sale at each of those times, percent |
+| `AutoBuyIdleHours` | `12` | buyers come only if players have not bought in the machine for this many game hours; a new rent counts as a purchase |
+| `AutoBuyMaxMarkupPercent` | `30` | buyers take only items marked up by at most this many percent |
+| `AutoBuyExcludeItems` | empty | item names, separated by commas, that buyers never take |
+
 ## Console commands
 
 | command | what it does |
@@ -411,6 +480,9 @@ The separate LockStorageOnPlace and LockVehicleOnPlace mods are not needed with 
 | `mp-give ...` | see [Give](#give) |
 | `mp-shutdown ...` | see [Shutdown](#shutdown) |
 
+A module that changes the game XML is switched by `mp enable` and `mp disable` after a server
+restart, see [Modules with game XML](#modules-with-game-xml).
+
 Console commands are for admins only (permission level 0) unless `serveradmin.xml` says otherwise.
 
 ## Failure behaviour
@@ -418,6 +490,9 @@ Console commands are for admins only (permission level 0) unless `serveradmin.xm
 * Modules do not depend on each other. If a module fails 10 times within a minute, it switches
   itself off, writes the reason to the log and tells how to switch it back on. The others keep
   working.
+* A module that changes the game XML is not switched off after errors, it only logs them: the game
+  XML cannot be taken back while the server runs, and such a module without its code would leave the
+  game broken.
 * A module whose settings or text file is missing or wrong stays off, and the log names the file
   and the problem. The other modules start as usual.
 * A mistake in a file edited while the server runs never stops anything: the log names the file and

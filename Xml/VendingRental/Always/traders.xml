@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Applied even when the module is off: placed rental machines are saved with this trader, and the save only loads while it exists with rentable="true" -->
+<configs>
+	<append xpath="/traders">
+		<trader_info id="51" reset_interval="-1" override_buy_markup="1.0" override_sell_markup="1.0" allow_sell="false" player_owned="true" rentable="true" rent_cost="5000" rent_time="30" />
+	</append>
+</configs>

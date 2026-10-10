@@ -2,8 +2,8 @@
 <xml>
   <Name value="ServerMultipass" />
   <DisplayName value="Server Multipass" />
-  <Description value="Server-side admin toolkit made of modules: homes, teleport requests, blood moon reminders, scheduled restarts, chest sorting, land claim, backpack and quest location protection, a land claim limit that gives the block back instead of switching off the oldest claim, item giving, chat tags, welcome messages and locks on newly placed boxes, doors and vehicles. Every module is switched on or off in ServerMultipass.xml; settings and texts apply without a restart. Server-side only, vanilla clients need nothing. See README.md for details. Built for game version 3.2." />
+  <Description value="Server-side admin toolkit made of modules: homes, teleport requests, blood moon reminders, scheduled restarts, chest sorting, land claim, backpack and quest location protection, a land claim limit that gives the block back instead of switching off the oldest claim, item giving, chat tags, welcome messages, locks on newly placed boxes, doors and vehicles, and rental vending machines. Every module is switched on or off in ServerMultipass.xml; settings and texts apply without a restart, modules that change the game XML switch after a restart. Server-side only, vanilla clients need nothing. See README.md for details. Built for game version 3.2." />
   <Author value="kotfoxtrot" />
-  <Version value="1.4" />
+  <Version value="1.5" />
   <Website value="" />
 </xml>

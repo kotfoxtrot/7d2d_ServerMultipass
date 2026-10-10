@@ -1,0 +1,5 @@
+Key,english,russian
+Tag,"[FFCC00][Vending][-]","[FFCC00][Автомат][-]"
+Rented,"Vending machines rented: [F0A66D]{0}/{1}[-]","Арендовано автоматов: [F0A66D]{0}/{1}[-]"
+LimitReached,"[FF5555]Vending machine rental limit reached: [F0A66D]{0}/{1}[-]","[FF5555]Достигнут лимит аренды автоматов: [F0A66D]{0}/{1}[-]"
+RenewSoon,"Renew the rent of the machine at [F0A66D]{0}[-]: add [F0A66D]{1}[-] dukes to its till before day [F0A66D]{2}[-]","Продлите аренду автомата [F0A66D]{0}[-]: пополните кассу на [F0A66D]{1}[-] дюков до дня [F0A66D]{2}[-]"

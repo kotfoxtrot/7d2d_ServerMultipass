@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<set xpath="/blocks/block[@name='cntVendingMachine']/property[@name='TraderID']/@value">51</set>
+	<set xpath="/blocks/block[@name='cntVendingMachine']/property[@name='DescriptionKey']/@value">cntVendingMachineRentalPlayerDesc</set>
+	<append xpath="/blocks/block[@name='cntVendingMachineTrader']">
+		<property name="DescriptionKey" value="cntVendingMachineRentalDesc" />
+	</append>
+</configs>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<set xpath="/traders/trader_info[@id='5']/@rent_cost">${RentPrice}</set>
+	<set xpath="/traders/trader_info[@id='51']/@rent_cost">${RentPrice}</set>
+</configs>

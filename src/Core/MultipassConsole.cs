@@ -25,7 +25,8 @@ namespace ServerMultipass
                    "  mp enable <module>   turn a module on and save it in ServerMultipass.xml\n" +
                    "  mp disable <module>  turn a module off and save it in ServerMultipass.xml\n" +
                    "  mp reload            read ServerMultipass.xml, Settings and Lang again right now\n" +
-                   "Settings and texts are also picked up automatically a few seconds after a file is saved.";
+                   "Settings and texts are also picked up automatically a few seconds after a file is saved.\n" +
+                   "A module that changes the game XML turns on or off only after a server restart.";
         }
 
         public override void Execute(List<string> _params, CommandSenderInfo _senderInfo)
@@ -106,8 +107,10 @@ namespace ServerMultipass
         private static string State(Module module)
         {
             if (module.Faulted) return "off (turned off after errors)";
-            if (module.Enabled) return "on";
             var state = MainConfig.State(module);
+            if (module.HasXml && Multipass.Settings != null && state.HasValue && state.Value != module.XmlApplied)
+                return module.XmlApplied ? "on (off after restart)" : "off (on after restart)";
+            if (module.Enabled) return "on";
             if (Multipass.Settings == null || state == false) return "off";
             if (state == null) return $"off (not listed in {MainConfig.FileName})";
             if (!module.ConfigReady) return $"off ({module.ConfigProblem})";
